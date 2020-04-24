@@ -1,0 +1,50 @@
+
+// https://github.com/Microsoft/vscode-cpptools/blob/master/launch.md
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "JAVA.Main",
+            "projectName": "VsCodeProgram_4f9cf8c0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - LearnJava",
+            "request": "launch",
+            "mainClass": "JAVA.LearnJava",
+            "projectName": "VsCodeProgram_4f9cf8c0"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - hello",
+            "request": "launch",
+            "mainClass": "JAVA.hello",
+            "projectName": "VsCodeProgram_4f9cf8c0"
+        },
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "internalConsoleOptions": "neverOpen",
+            "MIMode": "gdb",
+            "miDebuggerPath": "D:\\MinGW\\bin\\gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "Compile"
+        }
+    ]
+}
