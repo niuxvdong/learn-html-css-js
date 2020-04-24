@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #p1 {
+            font-weight: 700;
+        }
+
+        #p2 {
+            font-style: italic;
+        }
+
+        #p3 {
+            text-decoration: line-through;
+        }
+
+        #p4 {
+            text-decoration: underline;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>strong em del ins</h1>
+    <h1>strong em del ins(带有语义)</h1>
 
     <strong>strong加粗</strong>
     <em>em斜体</em>
     <del>del删除线</del>
     <ins>ins下划线</ins>
 
+    <h1>b i s u(不带有语义)</h1>
+
+    <b>b加粗</b>
+    <i>i斜体</i>
+    <s>s删除线</s>
+    <strike>strike删除线(不建议使用)</strike>
+    <u>u下划线</u>
+
+    <h1>使用css实现文本格式化</h1>
+
+    <p id="p1">加粗</p>
+    <p id="p2">斜体</p>
+    <p id="p3">删除线</p>
+    <p id="p4">下划线</p>
+
+    
 
 </body>
+
 </html>

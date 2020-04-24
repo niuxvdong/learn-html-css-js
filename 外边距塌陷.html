@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .father {
+            width: 200px;
+            height: 200px;
+            background: #f00;
+
+            overflow: hidden;
+        }
+        .son {
+            width: 100px;
+            height: 100px;
+            margin-top: 50px;
+            background: #0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>overflow: hidden解决塌陷</h1>
+
+    <div class="father">
+        <div class="son"></div>
+    </div>
+
+    <h1>其他方法：（不建议）给父元素加border,padding，再进行高宽的调整。。</h1>
+
+</body>
+</html>

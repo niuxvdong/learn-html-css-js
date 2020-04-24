@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 910px;
+            overflow: hidden;
+            margin: 0 auto;
+            padding-left: 1px;
+        }
+        #container>div {
+            width: 300px;
+            height: 450px;
+            float: left;
+            border: 1px solid #ccc;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        #container>div:hover {
+            border-color: red;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>z-index使用</h1>
+    <img src="https://img.niuxvdong.top/11、z-index.png" alt="">
+
+    <h1>实现框框边框的合并及hover时的效果</h1>
+
+    <div id="container">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+</body>
+</html>
