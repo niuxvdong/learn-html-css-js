@@ -38,3 +38,19 @@ function f1() {
 }
 
 console.log(f1());
+
+//////////////////////////////////////////////
+function fact(x) {
+    if (x === 1) return 1;
+    return x * fact(x - 1);
+}
+
+console.log(fact(10));
+
+// 函数表达式，调用自己需要使用arguments.callee
+var fac = function (x) {
+    if (x === 1) return 1;
+    return x * arguments.callee(x - 1);
+};
+
+console.log(fac(10));

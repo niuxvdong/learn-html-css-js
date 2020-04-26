@@ -48,3 +48,10 @@ function Reverse(n) {
 
 console.log(Reverse(345));
 
+
+// for each
+
+var c = [1, 2, 3, 4];
+c.forEach(function (value, index, c) {
+    console.log(index, value);
+});

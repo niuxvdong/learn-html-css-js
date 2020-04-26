@@ -10,8 +10,3 @@
 - [CSS手册](http://css.doyoe.com/)
 - [该手册开源项目github地址](https://github.com/doyoe/css-handbook)
 
-<style>
-    body {
-
-    }
-<style>

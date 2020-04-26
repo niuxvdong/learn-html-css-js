@@ -46,3 +46,14 @@ f1();
 console.log(ccc);  // 可以访问
 // console.log(ddd); 无法访问
 
+obj = {};
+obj.a = 1;
+obj.b = 2;
+delete obj.b;
+console.log('a' in obj);
+console.log(obj.hasOwnProperty('a')); // true
+
+// 是否可枚举：
+console.log(obj.propertyIsEnumerable('toString')); // false
+
+
