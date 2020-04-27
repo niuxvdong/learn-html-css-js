@@ -33,7 +33,7 @@ show(xiaohong);
 
 
 // 二、构造函数
-// 这样可以，但是不必这样
+// 构造函数原理类似这样
 function Person(name, age, gender) {
     var p = {};
     p.name = name;
@@ -57,6 +57,7 @@ var tmp1 = new Person('tmp1', 24);
 show(tmp1);
 
 // 应该这样，使用this
+// 创建对象并return,内部已实现
 function Person1(name, age, gender) {
     this.name = name;
     this.age = age;
@@ -64,13 +65,13 @@ function Person1(name, age, gender) {
     this.eat = function() {
         console.log('I am eating!');
     }
-    return this;
 }
 
 
-// 不使用new，构造函数改变，所有实例改变
+// 不使用new，由于无返回值，undefined
 var wangwu = Person1('王五', 30);
-show(wangwu);
-// 使用new，互相独立
+console.log(wangwu); // undefined
+// 使用new，互相独立，自动构建对象并返回当前实例
 var mayun = new Person1('马云', 23);
 show(mayun);
+

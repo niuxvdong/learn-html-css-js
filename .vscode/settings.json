@@ -59,4 +59,5 @@
     },
     "workbench.editor.enablePreview": false,
     "code-runner.saveAllFilesBeforeRun": true,
+    "carbon.lineNumbers": true,
 }
