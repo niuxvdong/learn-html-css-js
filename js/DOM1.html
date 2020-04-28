@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" id="btn" value="按钮1">
+    <p id="p1">我是p</p>
+    <img src="../images/16、正态分布.png" alt="" id="img1" width="500" alt="显示不出来" title="鼠标提示">
+    <a href="" id="a1"></a>
+    <!-- js中的style都是小驼峰写法，没有-，因为分不清是属性还是减法 -->
+    <!-- css都可写 浏览器解析后，基本都是在html生成行内样式表 css里并没有 -->
+    <script>
+        var btn = document.getElementById('btn');
+        btn.value = '按钮2';
+        btn.type = 'text';
+        btn.style.backgroundColor = 'red';
+
+        var p = document.getElementById('p1');
+        p.innerText = '我是修改过的p';
+
+        var img = document.getElementById('img1');
+        img.src = '../images/15、css压缩-选择器.png';
+        // img有这种写法：如html的img（建议使用css）不需要单位
+        img.width = 300;
+        img.style.width = '700px';
+        img.alt = '我是图片';
+
+        var a = document.getElementById('a1');
+        a.innerText = '百度';
+        a.href = 'https://www.baidu.com/';
+        a.style.display = 'inline-block';
+        a.style.backgroundColor = 'red';
+        a.style.width = '100px';
+
+
+
+        
+
+    </script>
+</body>
+</html>

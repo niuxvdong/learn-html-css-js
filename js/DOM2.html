@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p>11</p>
+    <p class="p1">22</p>
+    <p>33</p>
+    <p class="p1">44</p>
+    <p class="p1">55</p>
+
+    <form action="">
+        <input type="password" placeholder="请输入密码：" name="pwd">
+        <input type="password" placeholder="请输入密码：" name="pwd">
+        <input type="password" placeholder="请输入密码：" name="pwd">
+    </form>
+
+    <script>
+        // 返回数组
+        var p = document.getElementsByTagName('p');
+
+        // for(var i = 0; i < p.length; i++){
+        //     p[i].innerText = 'i';
+        // }
+
+        // 有缺陷：不建议使用（遍历的不仅仅是五个p）
+        // for(var x in p){
+        //     console.log(x);
+        // }
+
+        // 有缺陷：不建议使用
+        // for each
+
+        var p1 = document.getElementsByClassName('p1');
+        p1[1].style.fontSize = '25px';
+
+        // name 只对部分标签有效，form img 表单 iframe
+        var input = document.getElementsByName('pwd');
+        input[1].style.border = '1px solid red';
+
+
+    </script>
+
+</body>
+</html>

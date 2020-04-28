@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <!-- 一、html中直接写js(不可取) -->
+    <!-- <input type="button" id="btn" value="按钮" onclick="alert('hello')"> -->
+
+    <!-- 二、js与html分离 -->
+
+    <!-- 1、 普通分离-->
+    <!-- <input type="button" id="btn" value="按钮" onclick="f()">
+    <script>
+        function f(){
+            alert('hello');
+        }
+    </script> -->
+
+    <!-- 2、改进 -->
+    <!-- <input type="button" id="btn" value="按钮">
+    <script>
+        function f(){
+            alert('hello');
+        }
+        var btn = document.getElementById('btn');
+        btn.onclick = f;
+    </script> -->
+
+    <!-- 3、 直接用.来写方法，剩下变量（防止变量污染）-->
+    <!-- <input type="button" id="btn" value="按钮">
+    <script>
+        document.getElementById('btn').onclick = function(){
+            alert('hello');
+        };
+    </script> -->
+
+    <!-- 4、使用window.onload DOM全部加载完，完成渲染时调用，不受js位置影响！ -->
+    <!-- <script>
+        window.onload = function(){
+            document.getElementById('btn').onclick = function(){
+                alert('hello');
+            };
+        }
+    </script>
+
+    <input type="button" id="btn" value="按钮"> -->
+
+
+</body>
+</html>

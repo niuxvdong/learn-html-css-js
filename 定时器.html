@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="txt"></div>
+
+    <!-- <script>
+        var timer;
+        function startTime(){
+            var now = new Date();
+            var txt = document.getElementById('txt');
+            txt.innerHTML = now.toLocaleTimeString();
+
+            timer = setTimeout(startTime, 1000);
+        }
+
+        timer = setTimeout(startTime, 20);
+
+        function stopTime(){
+            clearTimeout(timer);
+        }
+
+        setTimeout(stopTime, 5000);
+    </script> -->
+
+    <script>
+        var timer;
+        function startTime(){
+            var now = new Date();
+            var txt = document.getElementById('txt');
+            txt.innerHTML = now.toLocaleTimeString();
+        }
+        timer = setInterval(startTime, 1000);
+
+        function stopTime(){
+            // 清除掉队列
+            clearInterval(timer);
+        }
+
+        // 五秒后彻底结束
+        setTimeout(stopTime, 5000);
+    </script>
+</body>
+</html>
