@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/addRemoveClass.js"></script>
+    <style>
+
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: skyblue;
+            border: 1px solid red;
+            box-shadow: 10px 10px 10px 10px #cdd;
+        }
+
+        .show{
+            display: block !important;
+        }
+
+        .hidden{
+            display: none !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="div1" class="show"></div>
+    <input type="button" id="btn1" value="显示" data-v="show">
+    <!-- <input type="button" value="隐藏" id="btn2"> -->
+
+
+    <div>
+        <input type="text" id="txt" value="">
+        <input type="button" id="btn" value="无效" data-v="n">
+    </div>
+
+
+    <script>
+        /* 两个按钮动态实现div的显示与隐藏 */
+        // document.querySelector('#btn1').onclick = function(){
+        //     var div1 = document.querySelector('#div1');
+        //     removeClass(div1, 'hidden');
+        //     addClass(div1, 'show');
+        // }
+        // document.querySelector('#btn2').onclick = function(){
+        //     var div1 = document.querySelector('#div1');
+        //     removeClass(div1, 'show');
+        //     addClass(div1, 'hidden');
+        // }
+
+        /* 一个按钮动态实现div的显示与隐藏 (使用value属性控制)*/
+        // document.querySelector('#btn1').onclick = function(){
+        //     var div1 = document.querySelector('#div1');
+        //     if(this.value === '显示'){
+        //         removeClass(div1, 'show');
+        //         addClass(div1, 'hidden')
+        //         this.value = '显示';
+        //     }else{
+        //         removeClass(div1, 'hidden');
+        //         addClass(div1, 'show')
+        //         this.value = '隐藏';
+        //     }
+        // }
+
+        /* 一个按钮动态实现div的显示与隐藏 (使用用户数据控制)*/
+        // 即增加一个 data-...后面随便， 使用dataset[...]来访问
+
+        document.querySelector('#btn1').onclick = function(){
+            var div1 = document.querySelector('#div1');
+            if(this.dataset['v'] === 'show'){
+                removeClass(div1, 'show');
+                addClass(div1, 'hidden')
+                this.value = '显示';
+                this.dataset['v'] = 'hidden';
+            }else{
+                removeClass(div1, 'hidden');
+                addClass(div1, 'show')
+                this.value = '隐藏';
+                this.dataset['v'] = 'show';
+            }
+        }
+
+
+
+        // 设置一个控制input（disabled）有效无效的控件
+
+        document.querySelector('#btn').onclick = function(){
+            var txt = document.querySelector('#txt');
+            if(this.dataset['v'] == 'n'){
+                txt.disabled = true;
+                this.dataset['v'] = 'y';
+                this.value = '有效';
+            }else{
+                txt.disabled = false;
+                this.dataset['v'] = 'n';
+                this.value = '无效';
+            }
+        }
+
+
+
+    </script>
+
+
+</body>
+</html>

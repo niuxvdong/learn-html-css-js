@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <p>点击图片查看大图：</p>
+
+    <a href="" id="a-link">
+        <img src="images/guitar-small.jpg" alt="">
+    </a>
+    <img src="" alt="" id="img1">
+
+    <script>
+        document.querySelector('#a-link').onclick = function(){
+            document.querySelector('#img1').src = 'images/guitar.jpg';
+            // 防止跳转
+            return false;
+        }
+    </script>
+
+
+</body>
+</html>

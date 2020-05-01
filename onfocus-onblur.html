@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- placeholder="请输入内容：" -->
+    <p>使用js实现placeholder效果，略有不同</p>
+    <input type="text" id="txt" value="请输入内容："> js<br>
+    <input type="text" name="" id="" placeholder="请输入内容："> placeholder <br>
+
+    <p>判断密码长度并提示</p>
+    <input type="password" name="" id="pwd"><span id="prompt">尚未发现问题</span>
+
+    <script>
+        document.querySelector('#txt').onfocus = function(){
+            if(this.value === '请输入内容：'){
+                this.value = '';
+                this.style.color = 'red';
+            }
+        }
+
+        document.querySelector('#txt').onblur = function(){
+            if(this.value === ''){
+                this.value = '请输入内容：';
+                this.style.color = '#000';
+            }
+        }
+
+        var prompt = document.querySelector('#prompt');
+        document.querySelector('#pwd').onblur = function(){
+            if(this.value.length < 6){
+                prompt.style.color = 'red';
+                prompt.innerText = '密码长度少于六位！';
+            }
+        }
+
+        document.querySelector('#pwd').onfocus = function(){
+            prompt.style.color = '#000';
+            prompt.innerText = '尚未发现问题';
+        }
+    </script>
+
+
+</body>
+</html>

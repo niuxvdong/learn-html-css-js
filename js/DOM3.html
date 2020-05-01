@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="" id="frm">
+        <input type="button" value="">
+        <input type="button" value="">
+        <input type="button" value="">
+        <input type="button" value="">
+        <input type="button" value="">
+        <input type="date">
+    </form>
+
+    <script>
+        var frm = document.getElementById('frm');
+        var inputs = frm.getElementsByTagName('input');
+        var tmpInput = null, tmpIndex = -1;
+        var tmpInput1 = [];
+
+        for(var i = 0; i < inputs.length; i++){
+            if(inputs[i].type === 'button'){
+                inputs[i].value = '按钮' + i;
+                // inputs[i].onclick = function(){
+                //     // 点之前将所有都初始化一次
+                //     for(var j = 0; j < inputs.length; j++){
+                //         inputs[j].value = '按钮' + j;
+                //     }
+                //     // 这样会报错，因为预编译和闭包，这个function不是直接运行的，而是扫描一遍后i已经变成了6
+                //     // console.log(i); // 6
+                //     // inputs[i].value = '我被点击了';
+
+
+                //     // 解决方法一：使用this(永远指向大年input的i)
+                //     // this.value = '我被点击了';
+
+                // }
+
+                // 解决方法二：使用立即执行函数
+                // inputs[i].onclick = (function(x){
+
+                //     return (function(){
+                //         for(var j = 0; j < inputs.length; j++){
+                //             inputs[j].value = '按钮' + j;
+                //         }
+                //         inputs[x].value = '我被点击了';
+                //     });
+
+                // })(i);
+
+
+                // 优化：记录上一次被点的input
+
+                // inputs[i].onclick = (function(x){
+
+                //     return (function(){
+                //         // 修改上次的被点状态为按钮
+                //         if(tmpInput !== null){
+                //             tmpInput.value =  '按钮' + tmpIndex;
+                //         }
+                //         // 处理当前被点input
+                //        inputs[x].value = '我被点击了';
+                //        // 记录上次input与index
+                //        tmpInput = inputs[x];
+                //        tmpIndex = x;
+                //     });
+                // })(i);
+
+
+                // 优化二：防止污染全局变量
+
+                // 添加额外属性
+                // inputs[i].myI = i;
+                // inputs[i].onclick = (function(x){
+
+                //     return (function(){
+                //         // 修改上次的被点状态为按钮
+                //         if(tmpInput !== null){
+                //             tmpInput.value =  '按钮' + tmpInput.myI;
+                //         }
+                //         // 处理当前被点input
+                //        inputs[x].value = '我被点击了';
+                //        // 记录上次input与index
+                //        tmpInput = inputs[x];
+                //     });
+                // })(i);
+
+                // 优化三：防止出错，改为数组存储被点过的input(像一个栈)
+                inputs[i].myI = i;
+                inputs[i].onclick = (function(x){
+
+                    return (function(){
+                        // 将所有点过的都还原
+                        while(tmpInput1.length > 0){
+                            var tmp = tmpInput1.pop();
+                            tmp.value = '按钮' + tmp.myI;
+                        }
+                        // 处理当前被点input
+                       inputs[x].value = '我被点击了';
+                       // 记录上次input与index
+                       // tmpInput1 = inputs[x];
+                       tmpInput1.push(inputs[x]);
+                    });
+                })(i);
+
+            }
+        }
+
+    </script>
+
+
+</body>
+</html>

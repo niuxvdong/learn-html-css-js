@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="addRemoveClass.js"></script>
+    <style>
+        .font30{
+            font-size: 30px;
+        }
+
+        .colorRed{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="https://niuxvdong.top/posts/57030.html">之前的document.querySelector记录！</a>
+
+    <h1>添加类和删除类的函数实现及querySelect使用</h1>
+
+    <div id="div1">
+        <p>AAAAA</p>
+        <p>BBBBB</p>
+        <p>CCCCC</p>
+    </div>
+
+    <script>
+        var p = document.querySelector('#div1>p');
+        // p.style.fontSize = '40px';
+
+        // var p1 = document.querySelectorAll('#div1>p');
+        // for(var i = 0; i < p1.length; i++){
+        //     p1[i].style.color = 'red';
+        // }
+
+        // for in 会把对象的所有属性都遍历到，无法使用
+        // for(var x in p1){
+        //     console.log(x);
+        // }
+
+
+        // for each 可以
+        // p1.forEach(function(item, index){
+        //     // console.log(item, index);
+        //     item.style.color = 'blue';
+        // })
+
+
+        // 使用className来控制style的css，此时的css就不是行内样式表了，要取CSS中去找
+
+        var p1 = document.querySelectorAll('#div1>p');
+
+        // 添加多个类这样写：
+        p1[1].className = 'font30 colorRed';
+
+        // 对于原来有class的，编写一个函数
+
+        addClass(p1[2], 'colorRed');
+        addClass(p1[2], 'font30');
+
+        removeClass(p1[1], 'font30');
+
+
+        // // 添加类
+        // function addClass(element, className){
+        //     var classNames = element.className.split(' ');
+        //     for(var i = 0; i < classNames.length; i++){
+        //         if(classNames[i] === className){
+        //             break;
+        //         }
+        //     }
+        //     // 没找到则添加进去
+        //     if(i === classNames.length){
+        //         if(element.className === ''){
+        //             element.className += className;
+        //         }else{
+        //             element.className += ' ' + className;
+        //         }
+        //     }
+        // }
+
+        // // 删除类
+        // function removeClass(element, className){
+        //     var classNames = element.className.split(' ');
+        //     for(var i = 0; i < classNames.length; i++){
+        //         if(classNames[i] === className){
+        //             break;
+        //         }
+        //     }
+        //     // 找到了
+        //     if(i !== classNames.length){
+        //         // 切掉当前要删属性值
+        //         classNames.splice(i, 1);
+        //         // 按空格分开
+        //         element.className = classNames.join(' ');
+        //     }
+        //     // 没找到不需要删除
+        // }
+
+        // 将当前删除和添加类的方法放到一个文件使用外部方式引入即可
+
+
+
+    </script>
+
+
+</body>
+</html>

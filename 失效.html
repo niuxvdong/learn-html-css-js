@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <input type="text" id="txt" value="">
+        <input type="button" id="btn" value="无效" data-v="n">
+    </div>
+
+    <a href="//baidu.com/" id="invalid-a" onclick="">百度一下</a>
+
+    <script>
+        // 设置一个控制input（disabled）有效无效的控件
+
+        document.querySelector('#btn').onclick = function(){
+            var txt = document.querySelector('#txt');
+            if(this.dataset['v'] == 'n'){
+                txt.disabled = true;
+                this.dataset['v'] = 'y';
+                this.value = '有效';
+            }else{
+                txt.disabled = false;
+                this.dataset['v'] = 'n';
+                this.value = '无效';
+            }
+        }
+
+        // 让a标签失效
+        // 第一种：行内 onclick = "return false;"
+
+
+        // 第二种：写到行内样式onclick = "return f()"
+
+        // function f(){
+        //     alert('禁止点我！');
+        //     return false;
+        // }
+
+        // 第三种：直接onclick="return false"
+        document.querySelector('#invalid-a').onclick = function(){
+            alert('禁止点我！');
+            return false;
+        }
+
+        
+
+    </script>
+
+</body>
+</html>

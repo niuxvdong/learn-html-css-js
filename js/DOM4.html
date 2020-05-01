@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="" id="frm">
+        <input type="radio" value="m">男
+        <input type="radio" value="f">女
+        <input type="radio" value="fm">不男不女
+    </form>
+
+    <form action="" id="frm1">
+        <input type="checkbox" value="a"> 语文
+        <input type="checkbox" value="b"> 数学
+        <input type="checkbox" value="c"> 英语
+        <input type="checkbox" value="d"> 物理
+        <input type="checkbox" value="e"> 化学
+    </form>
+
+
+
+    <!-- 先变化checked状态，后调用onclick -->
+
+    <script>
+        // 不使用name实现只能选一个
+        // 但是点一个checked的还会改变：
+        var frm = document.getElementById('frm');
+        var radios = frm.getElementsByTagName('input');
+        var tmpRadios = [];
+
+        // for(var i = 0; i < radios.length; i++){
+        //     if(radios[i].type === 'radio'){
+        //         radios[i].onclick = function(){
+        //             while(tmpRadios.length > 0){
+        //                 var tmp = tmpRadios.pop();
+        //                 tmp.checked = false;
+        //             }
+        //             tmpRadios.push(this);
+        //         }
+        //     }
+        // }
+
+        // 实现点过的再点的效果不改变
+        /* var 的作用域：
+            1、全局作用域
+            2、函数作用域
+         */
+
+        for(var i = 0; i < radios.length; i++){
+            if(radios[i].type === 'radio'){
+                radios[i].onclick = function(){
+
+                    // 查看当前this是不是已经选中了
+                    // 若已经选中：不做操作
+                    for(var j = 0; j < tmpRadios.length; j++){
+                        if(this === tmpRadios[j]){
+                            break;
+                        }
+                    }
+                    // 如果没有选中，进行选中
+                    if(j === tmpRadios.length){
+                        while(tmpRadios.length > 0){
+                            var tmp = tmpRadios.pop();
+                            tmp.checked = false;
+                        }
+                        tmpRadios.push(this);
+                    }
+                }
+            }
+        }
+
+        /* 实现最多选择两个 */
+
+        var frm1 = document.getElementById('frm1');
+        var checkBoxes = frm1.getElementsByTagName('input');
+        var tmpCheckBoxes = [];
+
+        // 这样写的一个bug：只能点没点过的
+        // 用数组模拟一个队列，队尾进，队首删除，始终保持有两个，有一个bug
+        // for(var i2 = 0; i2 < checkBoxes.length; i2++){
+        //     if(checkBoxes[i2].type === 'checkbox'){
+        //         checkBoxes[i2].onclick = function(){
+        //             // 如果点击过的大于2个就将最早的点的改为false
+        //             while(tmpCheckBoxes.length > 1){
+        //                 var tmp = tmpCheckBoxes.shift();
+        //                 tmp.checked = false;
+        //             }
+        //             tmpCheckBoxes.push(this);
+        //         }
+        //     }
+        // }
+
+        // 修复bug：
+        for(var i2 = 0; i2 < checkBoxes.length; i2++){
+            if(checkBoxes[i2].type === 'checkbox'){
+                checkBoxes[i2].onclick = function(){
+                    // 没有选中时
+                    // 先变化checked状态，后调用onclick，所以为true时，就是未选中状态
+                    if(this.checked){
+                        // 如果点击过的大于2个就将最早的点的改为false
+                        while(tmpCheckBoxes.length > 1){
+                            var tmp = tmpCheckBoxes.shift();
+                            tmp.checked = false;
+                        }
+                        // 点了后checked的状态就变了，不用专门设置状态
+                        // this.checked = true;
+                        tmpCheckBoxes.push(this);
+                    }else{ // 选中时
+                        for(var j = 0; j < tmpCheckBoxes.length; j++){
+                            if(this === tmpCheckBoxes[j]){
+                                // 点了后checked的状态就变了，不用专门设置状态
+                                // this.checked = false;
+                                tmpCheckBoxes.splice(j, 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
