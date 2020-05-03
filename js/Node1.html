@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <img src="../images/node.png" alt="">
+
+    <h1>nodeType nodeName nodeValue childNodes children</h1>
+
+
+    <div class="div1">
+        <div class="cls" style="color: red;">
+            <p>
+                <span></span>
+            </p>
+        </div>
+        bdf
+        <span></span>
+        abcd
+        <!-- 1234 -->
+    </div>
+
+    <script>
+        function showNode(node){
+            var type = '';
+            switch(node.nodeType){
+                case 1:
+                    type = 'element';
+                    break;
+                case 2:
+                    type = 'attribute';
+                    break;
+                case 3:
+                    type = 'text';
+                    break;
+                case 8:
+                    type = 'comment';
+                    break;
+                default:
+                    type = 'unknown';
+            }
+            console.log('nodeType: ' + node.nodeType + '    name: ' + type + '  nodeName: ' + node.nodeName + ' nodeValue: ' + node.nodeValue + ';');
+
+        }
+
+
+        var div = document.querySelector('.div1');
+        showNode(div);
+        // 获取所有属性
+        var idAttr = div.attributes[0];
+        showNode(idAttr);
+
+
+        var txt = div.childNodes[0];
+        showNode(txt);
+        var txt = div.childNodes[1];
+        showNode(txt);
+        var txt = div.childNodes[2];
+        showNode(txt);
+        var txt = div.childNodes[3];
+        showNode(txt);
+        var txt = div.childNodes[4];
+        showNode(txt);
+
+        console.log('childNodes遍历: 换行 空格 元素 文本 注释 都有');
+        for(var i = 0; i < div.childNodes.length; i++){
+            showNode(div.childNodes[i]);
+        }
+        console.log(div.childNodes.length);
+
+        console.log('children遍历: 内部内有元素即标签');
+        for(var i = 0; i < div.children.length; i++){
+            showNode(div.children[i]);
+        }
+
+        // 遍历DOM Tree
+
+        console.log('--------------------------------遍历DOM Tree开始：（DFS）------------------------');
+        function goThrough(node, x){
+            if(node.childNodes != undefined){
+                for(var i = 0; i < node.childNodes.length; i++){
+                    var a = node.childNodes[i];
+                    showNode(a)
+                    if(a.attributes != undefined && a.attributes.length != 0){
+                        console.log(x + '------------------------当前节点的属性遍历开始：-------------------------');
+                        var attr = a.attributes;
+                        for(var j = 0; j < attr.length; j++){
+                            showNode(attr[j]);
+                        }
+                        console.log(x + '------------------------当前节点的属性遍历结束：-------------------------');
+                    }
+                    goThrough(a, x + '\t');
+                }
+            }
+        }
+
+        goThrough(div, '');
+        console.log('--------------------------------遍历DOM Tree结束：（DFS）------------------------');
+
+
+        // 用childNode实现children
+
+        function getChildren(element){
+            var children = [];
+
+            if(element.nodeType === 1 && element.childNodes !== undefined){
+                for(var i = 0; i < element.childNodes.length; i++){
+                    var a = element.childNodes[i];
+                    if(a.nodeType === 1){
+                        children.push(a);
+                    }
+                }
+            }
+            return children;
+        }
+
+        console.log(getChildren(div));
+
+
+        /* Chrome 已经都兼容了 */
+        // parentNode (w3c)
+        console.log(div.parentNode);
+        showNode(div.parentNode);
+
+        // parentElement (IE)
+        console.log(div.parentElement);
+        showNode(div.parentElement);
+
+        // previousSibling 前一个childNode IE8：前一个element
+
+        var s = document.querySelector('.div1>span');
+        console.log(s.previousSibling);
+
+        // previousElementSibling 前一个children(element/标签) IE8: 不支持
+        console.log(s.previousElementSibling);
+
+        // nextSibling 下一个childNode IE8:后一个element
+        console.log(s.nextSibling);
+        // nextElementSibling 下一个children(element/标签) IE8:不支持
+        console.log(s.nextElementSibling);
+
+
+        // firstChild IE8 不支持 第一个element
+
+        // lastChild Chrome Firefox : 最后一个Node
+        //                  IE8: 最后一个element
+
+        // firstElementChild  Chrome Firefox : 第一个element
+        //                          IE8 : 不支持
+        // lastElementChild Chrome FireFox : 最后一个element
+        //                          IE8：不支持
+
+
+        /* IE8兼容性问题 */
+        // 一、element
+
+        var firstChild;
+        // 针对Chrome
+        if(div.firstElementChild){
+            firstChild = div.firstElementChild;
+        }else{ // 针对IE8
+            firstChild = div.firstChild;
+        }
+
+        // 简化写法:
+        first = div.firstElementChild || div.firstChild;
+
+        var lastChild = div.lastElementChild || div.lastChild;
+
+
+        var previousSibling = s.previousElementSibling || s.previousSibling;
+
+        var nextSibling = s.nextElementSibling || s.nextSibling;
+
+
+
+
+    </script>
+</body>
+</html>

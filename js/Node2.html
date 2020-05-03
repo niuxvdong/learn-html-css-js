@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>创建节点</h1>
+
+    <p>document.write</p>
+    <p>对象.innerHTML</p>
+    <p>document.creatElement</p>
+
+    <h1>删除节点</h1>
+
+    <div id="div1">
+        aaa
+        <p>hello</p>
+
+    </div>
+
+    <script>
+
+        /* 一、document.write() 如果在加载完毕进行调用（window.onload）会把页面所有东西全部覆盖 （一般不使用！）*/
+        //      只用于页面加载时，加载完毕不要再使用
+
+        // document.write('<h1>牛逼</h1> <input type="button" value="按钮"></input>');
+
+        // 所有东西全部被onload覆盖
+        // window.onload = function(){
+        //     // document.write('<h1>牛逼</h1> <input type="button" value="按钮"></input>');
+        // }
+
+        // window.onload = function(){
+        //     document.write('<h1>牛逼</h1> <input type="button" value="按钮"></input>');
+        //     document.write('<h1>牛逼2</h1> <input type="button" value="按钮"></input>');
+        // }
+
+
+        /*  二、对象.innerHTML （一般使用这种）*/
+        // 标签/元素内部元素会被覆盖，后覆盖前
+        // window.onload 不会覆盖页面
+        // var div = document.querySelector('#div1');
+        // div.innerHTML = '<h3>标题</h3>';
+        // window.onload = function(){
+        //     div.innerHTML = '<h1>牛逼</h1> <input type="button" value="按钮"></input>';
+        // }
+        // 保留原内容：
+        // div.innerHTML = '<h1>牛逼</h1> <input type="button" value="按钮"></input>' + div.innerHTML;
+
+
+        /* 三、document.creatElement （略麻烦）（有时也要用到）*/
+
+        // 创建
+        // var p = document.createElement('p');
+        // // 插入内容
+        // p.innerHTML = 'hello world!';
+        // var div = document.querySelector('#div1');
+        // // 加到div的后面
+        // div.appendChild(p);
+
+
+
+
+        // var div = document.querySelector('#div1');
+        // var input = document.createElement('input');
+        // // 创建属性
+        // var type = document.createAttribute('type');
+        // type.value = 'button';
+        // var value = document.createAttribute('value');
+        // value.value = '按钮';
+        // // 添加属性
+        // input.setAttributeNode(type);
+        // input.setAttributeNode(value);
+
+        // 直接设置类型及参数
+        // input.setAttribute('type', 'button');
+
+        // 获取属性 getAttribute
+        // console.log(input.getAttribute('type'));
+
+        // 将input插入父元素的最后面
+        // div.appendChild(input);
+        // 将input插到p前面
+        // var p = document.querySelector('#div1>p');
+        // div.insertBefore(input, p);
+
+
+        // DOM删除
+        // 一、remove 自杀
+        // input.remove();
+
+        // 二、removeChild 父杀 又返回值
+        // div.removeChild(p);
+        // console.log(div.removeChild(p));
+
+
+        // DOM 改动
+        // 1、改变子元素的属性
+        // 2、替换子元素
+
+        var div = document.querySelector('#div1');
+        var p = document.querySelector('#div1>p');
+        var p1 = document.createElement('p');
+        p1.innerText = '一个段落';
+        // 用p2代替p
+        div.replaceChild(p1, p);
+
+
+
+    </script>
+
+
+</body>
+</html>

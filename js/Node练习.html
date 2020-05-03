@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="container">
+        <!-- <li>Beijing</li>
+        <li>Taiyuan</li>
+        <li>Hangzhou</li> -->
+    </ul>
+
+    <script>
+        var data = [
+            'Beijing',
+            'Taiyuan',
+            'Hangzhou'
+        ];
+
+        var u = document.querySelector('#container');
+        var liInner = '';
+        for(var i = 0; i < data.length; i++){
+            liInner += '<li>' + data[i] + '</li>';
+        }
+
+        u.innerHTML += liInner;
+
+        var li = document.querySelectorAll('#container>li');
+        for(var j = 0; j < li.length; j++){
+            li[j].onmouseover = function(){
+                this.style.background = '#ff0';
+            }
+            li[j].onmouseout = function(){
+                this.style.background = '#fff';
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
