@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>事件绑定三个方法：</h1>
+
+    <div id="div1"></div>
+
+    <script>
+        // 一、onType
+        //      兼容性好，后覆盖前
+        //      一般不用，除非为了兼容落后浏览器
+
+        var d = document.querySelector('#div1');
+
+        // d.onclick = function(){
+        //     this.innerHTML = 'hhhhh';
+        // }
+
+        // 二、addEventListener('type', function)
+        //      不会覆盖，同时运行 IE8以下不支持
+
+        // d.addEventListener('click', function(){
+        //     console.log('hello');
+        // });
+
+        // d.addEventListener('click', function(){
+        //     console.log('world');
+        // });
+
+        // 三、attachEvent('onclick', function)
+        //      Chrome不支持 回调中，this指向的是windows
+
+        // d.attachEvent('onclick', function(){
+        //     console.log('hhhh');
+        // });
+
+        // 解决this指向
+        // function divClick(){
+        //     console.log(this);
+        // }
+
+        // d.attachEvent('onclick', function(){
+        //     divClick.call(d);
+        // });
+
+        // 实现Chrome与IE兼容写法：
+
+        function divClick(){
+            console.log('hhhh');
+        }
+
+        // function addEvent(element, type, fun) {
+        //     if(element.addEventListener){
+        //         element.addEventListener(type, fun);
+        //     }else if(element.attachEvent){
+        //         element.attachEvent('on' + type, fun);
+        //     }else{
+        //         element['on' + type] = fun;
+        //     }
+        // }
+
+        // addEvent(d, 'click', divClick);
+
+
+        // 通过原型的方式，变成d.addEvent()
+        // 使用构造函数的prototype来绑定方法
+
+        Element.prototype.addEvent = function (type, fun) {
+            var element = this;
+            if(element.addEventListener){
+                element.addEventListener(type, fun);
+            }else if(element.attachEvent){
+                element.attachEvent('on' + type, fun);
+            }else{
+                element['on' + type] = fun;
+            }
+        }
+
+        d.addEvent('click', divClick);
+
+
+    </script>
+
+</body>
+</html>
