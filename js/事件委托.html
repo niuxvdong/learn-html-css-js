@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul>li{
+            margin-top: 10px;
+            background: #ff0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>事件委托</h1>
+
+    <p>需要判断需要处理谁，解决子元素的nodeName...</p>
+
+    <ul id="ul">
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+        <li>没点过</li>
+    </ul>
+
+    <script>
+
+        Element.prototype.addEvent = function (type, fun) {
+            var element = this;
+            if(element.addEventListener){
+                element.addEventListener(type, fun);
+            }else if(element.attachEvent){
+                element.attachEvent('on' + type, fun);
+            }else{
+                element['on' + type] = fun;
+            }
+        }
+
+        // 在DOM Tree 上会把每一个li都添加一个事件，影响性能
+        // var li = document.querySelectorAll('#ul>li');
+        // for(var i = 0; i < li.length; i++){
+        //     li[i].addEvent('click', function(){
+        //         this.innerHTML = '----点过了----';
+        //     });
+        // }
+
+
+
+        // 直接封装到元素的prototype
+        Element.prototype.getTarget = function(e){
+            e = e || window.event;
+            return (e.target || e.srcElement);
+        }
+
+
+        // 通过ul解决绑定太多的事件
+        // 有问题，缝隙也是ul，点了就有问题了
+        var ul = document.querySelector('#ul');
+        // ul.addEvent('click', function(e){
+        //     e = e || window.event;
+        //     var target = e.target || e.srcElement;
+        //     target.innerHTML = '----点过了----';
+        // });
+
+        // 通过查找被点对象。。
+
+        ul.addEvent('click', function(e){
+
+            var target = this.getTarget();
+            // 判断是不是自己ul
+            if(target !== this){
+                target.innerHTML = '----点过了----';
+            }
+        });
+
+
+
+        // 若嵌套复杂：需要判断nodeName...
+
+
+
+    </script>
+
+</body>
+</html>

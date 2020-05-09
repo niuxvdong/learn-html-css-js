@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div.clsf {
+            width: 300px;
+            height: 300px;
+            background: red;
+        }
+
+        div.clss {
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+
+     <h1>事件的冒泡</h1>
+     <h1>事件的捕获</h1>
+     <h1>冒泡的取消</h1>
+     <h1>阻止默认事件</h1>
+     <h1>事件委托<a href="事件委托.html">点击这里！</a></h1>
+
+    <p>一个元素触发事件，其所有祖先元素都会触发该事件，称为冒泡（顺序，层层向上）第三个参数不写为冒泡</p>
+    <p>addEventListener的第三个参数表明是否捕获：顺序与冒泡完全相反，慎用，只有chrome支持，IE不支持</p>
+    <p>第三个参数：true or false</p>
+
+    <div class="clsf">
+        <div class="clss"></div>
+    </div>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    <a href="#" id="top-a">跳转顶部</a>
+
+    <script>
+        var divf = document.querySelector('.clsf');
+        var divs = document.querySelector('.clss');
+
+        // divf.addEventListener('click', function(){
+        //     console.log('father');
+        // }, true);
+
+        // divs.addEventListener('click', function(){
+        //     console.log('son');
+        // }, true);
+
+        // 就算使用定位溢出同样会有冒泡作用， 只要是祖先元素都会触发
+
+        // 机油冒泡又有捕获执行顺序（1->2->3）
+        //      1、祖先节点，从高到低，触发捕获
+        //      2、节点本身，按照绑定顺序，进行触发二者
+        //      3、祖先节点，从低到高，触发冒泡
+
+
+
+
+
+
+
+        // 冒泡的取消
+
+        // Chrome(不支持IE): 在一个冒泡中加上参数e，使用e.cancelBuddle来传递 或使用 e.stopPropagation();
+
+        // divf.addEventListener('click', function(){
+        //     console.log('father');
+        // });
+
+        // divs.addEventListener('click', function(e){
+        //     console.log('son');
+        //     // console.log(e);
+        //     e.cancelBubble = true;
+        //     e.stopPropagation();
+        // });
+
+
+        // IE(不支持Chrome): e = window.event; e.cancelBubble = true;
+        // divf.addEventListener('click', function(){
+        //     console.log('father');
+        // });
+
+        // divs.addEventListener('click', function(e){
+        //     console.log('son');
+        //     e = window.event;
+        //     e.cancelBubble = true;
+
+        // });
+
+
+        // Chrome 与 IE 都兼容写法：
+
+        // function stopPropagation(e){
+        //     e = e || window.event;
+        //     // 针对Chrome与IE
+        //     if(e.stopPropagation){
+        //         e.stopPropagation();
+        //     }else{
+        //         e.cancelBubble = true;
+        //     }
+        // }
+
+        // 将其挂到 Element.prototype
+
+        Element.prototype.stopPropagation = function(e) {
+            e = e || window.event;
+            // 针对Chrome与IE
+            if(e.stopPropagation){
+                e.stopPropagation();
+            }else{
+                e.cancelBubble = true;
+            }
+        }
+
+        // divf.addEventListener('click', function(){
+        //     console.log('father');
+        // });
+
+        // divs.addEventListener('click', function(e){
+        //     console.log('son');
+        //     this.stopPropagation(e);
+        // });
+
+
+        // 使用之前的兼容写法：
+
+        Element.prototype.addEvent = function (type, fun) {
+            var element = this;
+            if(element.addEventListener){
+                element.addEventListener(type, fun);
+            }else if(element.attachEvent){
+                element.attachEvent('on' + type, fun);
+            }else{
+                element['on' + type] = fun;
+            }
+        }
+
+        // divf.addEvent('click', function(e){
+        //     console.log('father');
+        // });
+
+        // divs.addEvent('click', function(e){
+        //     console.log('son');
+        //     this.stopPropagation(e);
+        // });
+
+
+        // 查询冒泡被点击的元素
+        //      Chrome: e.target e.srcElement
+        //      IE: e.srcElement
+
+        // divf.addEvent('click', function(e){
+        //     console.log('father');
+        // });
+
+        // divs.addEvent('click', function(e){
+        //     console.log('son');
+        //     this.stopPropagation(e);
+
+        //     e = e || window.event;
+        //     console.log(e.target, e.srcElement);
+
+        //     // 兼容写法：
+        //     var target = e.target || e.srcElement;
+        //     console.log(target);
+        // });
+
+
+
+
+
+
+
+        // 阻止默认行为：
+        //      1、return false
+
+        // oncontextmenu 右键菜单框
+
+        // document.oncontextmenu = function(){
+        //     console.log('右键点击禁用！');
+        //     return false;
+        // }
+
+
+        //      2、Chrome: e.preventDefault()
+        //            IE: e.returnValue = false;
+
+        // document.body.addEvent('contextmenu', function(e){
+        //     e = e || window.event;
+
+        //     if(e.preventDefault){
+        //         e.preventDefault();
+        //     }else{
+        //         e.returnValue = false;
+        //     }
+
+        //     this.preventDefault
+        // });
+
+        // 挂到prototype上
+
+        Element.prototype.preventDefault = function(e){
+            e = e || window.event;
+
+            if(e.preventDefault){
+                e.preventDefault();
+            }else{
+                e.returnValue = false;
+            }
+        }
+
+        document.body.addEvent('contextmenu', function(e){
+            this.preventDefault();
+        });
+
+        // 另一个默认行为：
+        // a标签跳转
+
+        var a = document.querySelector('#top-a');
+
+        // 调用prototype的默认阻止事件
+        // a.addEvent('click', function(e){
+        //     this.preventDefault();
+        // });
+
+        // 这是之前的写法:
+        // a.onclick = function(){
+        //     return false;
+        // }
+
+
+
+
+
+        // 事件委托
+
+
+
+
+
+    </script>
+
+</body>
+</html>

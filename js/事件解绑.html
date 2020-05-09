@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>事件解绑三个方法：</h1>
+
+    <div id="div1"></div>
+
+    <script>
+        var d = document.querySelector('#div1');
+
+        // 1、onType解绑
+
+        // d.onclick = function () {
+        //     this.innerHTML = 'hhhhh';
+        // }
+        // // 置为null
+        // d.onclick = null;
+
+
+        // 2、addEventListener('type', function)解绑
+
+        function divClick(){
+            console.log('hello');
+        }
+
+        // d.addEventListener('click', function(){
+        //     console.log('hello');
+        // });
+
+        // 修改如下：
+
+        // d.addEventListener('click', divClick);
+
+        // 解绑 d.removeEventListener('type', function);
+        //      需要明确指出那个函数，所以需要将函数单独出来
+        // d.removeEventListener();
+        //      只能删除addEventListener添加的函数
+        //      不需传函数名参数
+        // d.removeEventListener('click', divClick);
+
+
+        // 3、attachEvent('onclick', function) 针对IE8
+
+
+        // d.attachEvent('onclick', divClick);
+
+        // d.detachEvent('onclick', divClick);
+
+
+        // 实现Chrome与IE兼容写法：
+
+        d.addEventListener('click', divClick);
+
+        Element.prototype.removeEvent = function (type, fun) {
+            var element = this;
+            if(element.removeEventListener){
+                element.removeEventListener(type, fun);
+            }else if(element.detachEvent){
+                element.detachEvent('on' + type, fun);
+            }else{
+                element['on' + type] = null;
+            }
+        }
+
+        d.removeEvent('click', divClick);
+
+
+        
+
+
+
+    </script>
+
+</body>
+
+</html>
