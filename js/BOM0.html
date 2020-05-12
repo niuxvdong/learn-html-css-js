@@ -7,7 +7,154 @@
 </head>
 <body>
 
-    
+
+    <h1>BOM -> Browser Object Model</h1>
+
+    全局变量windows上的一些的一些预置对象及方法
+
+
+
+    <h1>对话框(不咋用。。)</h1>
+    <p>alert</p>
+    <p>prompt</p>
+    <p>confirm</p>
+
+    <script>
+        // alert()
+
+        // window.alert('..');
+
+        // prompt()
+
+        // var res = window.prompt('请输入：');
+        // console.log(res);
+
+        // confirm() 返回true or false
+
+        // var res = window.confirm('确定吗？');
+        // console.log(res);
+
+    </script>
+
+
+    <h1>加载事件</h1>
+
+    <p>window.onload</p>
+    <p>window.addEventListener</p>
+    <p>DOMContentLoaded</p>
+
+    <p>解决script在需要控制元素的前面无法控制该元素的问题</p>
+
+    <!-- 如下： -->
+    <!-- <script>
+        var div = document.querySelector('#div1');
+    </script>
+
+    <div id="div1">11</div> -->
+
+
+    <!-- 解决： -->
+
+    <script>
+        // 1. window.onload
+
+        // window.onload = function(){
+        //     var div = document.querySelector('#div1');
+        //     console.log(div);
+        // }
+
+        // 2. window.addEventListener('onType', function)（和1一模一样）
+
+        // window.addEventListener('load', function(){
+        //     var div = document.querySelector('#div1');
+        //     console.log(div);
+        // });
+
+        // 3. DOMContentLoaded（很少用）
+
+        window.addEventListener('DOMContentLoaded', function(){
+            var div = document.querySelector('#div1');
+            console.log(div);
+        });
+
+        // src CSS外部文件，img 加载异步，不会阻止DOM加载
+        //      1. DOM加载完
+        //      2. 所有CSS外部文件，img下载完
+        // 通常情况：1 先完，2 后完。
+        // window.onload : 2完成后触发
+        // DOMContentLoaded ：1完成后触发
+
+
+
+
+    </script>
+
+    <div id="div1">11</div>
+
+
+
+    <h1>Location</h1>
+    <p>地址栏信息</p>
+
+    <script>
+
+        console.log(window.location);
+
+        // 会不停刷新
+        // location.reload();
+
+
+        // 网址替换，跳转。。
+        // location.replace('https://www.baidu.com');
+
+
+        // location.assign();
+        // location.assign('//baidu.com');
+
+        // location.href(); 直接改
+        // location.href = '//baidu.com';
+
+    </script>
+
+    <h1>history</h1>
+
+    <a href="//baidu.com/">百度一下，你就知道</a>
+
+    <input type="button" name="" id="btn1" value="前进">
+    <input type="button" name="" id="btn2" value="后退">
+
+    <script>
+
+        var forward = document.querySelector('#btn1');
+        var back = document.querySelector('#btn2');
+
+        forward.addEventListener('click', function(){
+            history.forward();
+        });
+
+        back.addEventListener('click', function(){
+            history.back();
+        });
+
+
+
+    </script>
+
+
+    <h1>navigator</h1>
+    <p>浏览器及地址栏信息</p>
+
+    <script>
+
+        console.log(window.navigator);
+        console.log(navigator.userAgent);
+
+    </script>
+
+    <h1></h1>
+
+
+
 
 </body>
 </html>

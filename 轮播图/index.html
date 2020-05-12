@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/animation.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="box">
+        <div class="inner">
+            <ul>
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+            </ul>
+            <div data-index="0">
+                <span class="active">1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var inner = document.querySelector('#box>.inner');
+        var width = inner.offsetWidth;
+        var DURATION = 300;
+        var INTERVAL = 18;
+
+        console.log(width);
+
+        var ul = document.querySelector('#box>.inner>ul');
+        // animation(ul, -width * 1, DURATION, INTERVAL);
+
+        var spans = document.querySelectorAll('#box>.inner>div>span');
+        var div = document.querySelector('#box>.inner>div');
+
+        for(var i = 0; i < spans.length; i++){
+            // 使用立即执行函数将i传入
+            // spans[i].addEventListener('click', (function(x){
+            //     return (function(){
+            //         var oldX = parseInt(div.dataset['index']);
+            //         var d = Math.abs(oldX - x);
+            //         if(oldX !== x){
+            //             animation(ul, -width * x, DURATION * d, INTERVAL);
+            //             div.dataset['index'] = x;
+
+            //             pans[oldX].removeAttribute('class', 'active');
+            //             spans[x].setAttribute('class', 'active');
+            //         }
+            //     });
+            // })(i));
+
+            // 也可以从span的innerHTML里面获取下标
+            spans[i].addEventListener('click', function(){
+                var x = parseInt(this.innerHTML) - 1;
+                var oldX = parseInt(div.dataset['index']);
+                var d = Math.abs(oldX - x);
+                if(oldX !== x){
+                    // animation(ul, -width * x, DURATION * d, INTERVAL);
+                    // 自我感觉不乘d更舒服
+                    animation(ul, -width * x, DURATION, INTERVAL);
+                    div.dataset['index'] = x;
+
+                    spans[oldX].removeAttribute('class', 'active');
+                    spans[x].setAttribute('class', 'active');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

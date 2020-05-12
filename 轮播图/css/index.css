@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    list-style: none;
+}
+img {
+    vertical-align: top;
+}
+#box {
+    padding: 5px;
+    width: 520px;
+    height: 280px;
+    border: 1px solid #ccc;
+    margin: 100px auto;
+}
+
+#box>.inner {
+    position: relative;
+    height: 280px;
+    width: 520px;
+    overflow: hidden;
+}
+
+#box>.inner>ul {
+    /* 清除浮动 */
+    overflow: hidden;
+    position: absolute;
+    width: 500%;
+    /* left: -520px; */
+    top: 0;
+}
+#box>.inner>ul>li {
+    float: left;
+}
+
+#box>.inner>div {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+#box>.inner>div>span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin: 0 auto;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#box>.inner>div>span.active {
+    color: #fff;
+    background: #ff8000;
+}

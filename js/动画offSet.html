@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* * {
+            padding: 0;
+            margin: 0;
+        } */
+        #father {
+            margin: 100px;
+            padding: 50px;
+            border: 20px solid #555555;
+        }
+
+        #son {
+            width: 100px;
+            height: 100px;
+            padding: 30px;
+            margin: 20px;
+            border: 10px solid #000;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="father">
+        <div id="son"></div>
+    </div>
+
+    <h1>offSetWidth offSetHeight offSetTop offSetLeft</h1>
+
+    <p>只读不可改写</p>
+
+    <script>
+        var div = document.querySelector('#son');
+
+        // offsetWidth = width + 2 * padding + 2 * border
+        // 100 + 2 * 30 + 2 * 10 = 180
+        console.log(div.offsetWidth);
+        console.log(div.offsetHeight);
+
+        // offsetLeft 是相对于第一个已定位祖先的位置，若没有，则是浏览器可视区
+        // 会将默认值算进去（最好使用通配符清空一下）
+        // 8 + 100 + 20 + 50 + 20 = 198
+        console.log(div.offsetLeft);
+        // 100 + 20 + 50 + 20 = 190
+        console.log(div.offsetTop);
+    </script>
+</body>
+</html>

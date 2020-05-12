@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background: #f00;
+            margin-top: 30px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" name="" id="text" value="0">
+    <input type="button" name="" id="btn" value="移动">
+    <div></div>
+
+
+
+    <script>
+        var txt = document.querySelector('#text');
+        var btn = document.querySelector('#btn');
+        var div = document.querySelector('div');
+        // 持续时间
+        var DURATION = 5000;
+        // 间隔时间
+        var INTERVAL = 20;
+
+        // // 解决拔河现象：
+        // var timer = null;
+
+        // btn.addEventListener('click', function () {
+
+        //     // 起始点：一开始的位置
+        //     // 不能使用下面写法：获取的是行内样式表，获取不到CSS
+        //     // var start = div.style.left;
+        //     var start = div.offsetLeft;
+        //     // console.log('offsetLeft', start);
+        //     // 输入的结束值
+        //     var end = parseInt(txt.value)
+
+        //     // 解决拔河现象：
+        //     timer && clearInterval(timer);
+
+        //     // 开始进入运动
+        //     // var timer = setInterval(function () {
+        //     timer = setInterval(function () {
+        //         // 计算步长
+        //         var step = Math.floor((end - start) / (DURATION / INTERVAL));
+
+        //         if (step === 0) {
+        //             step = end - start > 0 ? 1 : -1;
+        //         }
+        //         // console.log('step', step);
+        //         if (Math.abs(end - div.offsetLeft) <= Math.abs(step)) {
+        //             div.style.left = end + 'px';
+        //             clearInterval(timer);
+        //         } else {
+        //             // 此时的offsetLeft为当前变化后的位置
+        //             div.style.left = div.offsetLeft + step + 'px';
+        //             // console.log('jjj', div.style.left);
+        //         }
+        //         // console.log(step);
+        //         console.log(timer, div.offsetLeft);
+        //     }, INTERVAL);
+
+        //     // 解决一个步骤没有完成点下一个步骤时的拔河现象
+        //     //      将timer定义放到setInterval外
+
+        // });
+
+        // 封装为函数
+        function animation(element, target, duration, interval) {
+            var start = element.offsetLeft;
+
+            element.timer && clearInterval(element.timer);
+
+            element.timer = setInterval(function () {
+
+                var step = Math.floor((target - start) / (duration / interval));
+
+                if (step === 0) {
+                    step = target - start > 0 ? 1 : -1;
+                }
+                if (Math.abs(target - element.offsetLeft) <= Math.abs(step)) {
+                    element.style.left = target + 'px';
+                    clearInterval(element.timer);
+                } else {
+                    element.style.left = element.offsetLeft + step + 'px';
+                }
+                console.log(element.timer, element.offsetLeft);
+            }, interval);
+
+        }
+
+        btn.addEventListener('click', function(){
+            animation(div, parseInt(txt.value), DURATION, INTERVAL);
+        });
+    </script>
+
+
+</body>
+
+</html>
