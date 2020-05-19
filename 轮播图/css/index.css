@@ -35,13 +35,13 @@ img {
     float: left;
 }
 
-#box>.inner>div {
+#box>.inner>.page {
     position: absolute;
     bottom: 20px;
     right: 20px;
 }
 
-#box>.inner>div>span {
+#box>.inner>.page>span {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -53,7 +53,42 @@ img {
     border-radius: 50%;
 }
 
-#box>.inner>div>span.active {
+#box>.inner>.page>span.active {
     color: #fff;
     background: #ff8000;
 }
+
+#box>.inner>.arrow>span {
+    position: absolute;
+    /* display: inline-block; */
+    width: 20px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 500;
+    font-size: 20px;
+
+    top: 50%;
+    margin-top: -15px;
+    color: #fff;
+    background: #000;
+    opacity: 0.4;
+    cursor: pointer;
+
+    display: none;
+}
+
+#box>:hover.inner>.arrow>span {
+    display: inline-block;
+}
+
+#box>.inner>.arrow>span.left {
+    left: 0;
+    border-radius: 0 15px 15px 0;
+}
+
+#box>.inner>.arrow>span.right {
+    right: 0;
+    border-radius: 15px 0 0 15px;
+}
+

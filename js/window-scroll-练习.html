@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        div {
+            width: 500px;
+            height: 300px;
+        }
+
+        .gray {
+            background: linear-gradient(to right, #47a088, #ff0);
+            height: 100px;
+        }
+
+        .red {
+            background: #f00;
+        }
+
+        .blue {
+            background: #00f;
+        }
+
+        .green {
+            background: #0f0;
+        }
+
+        .black {
+            background: #000;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="red">1</div>
+    <div class="gray" id="fixed">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+    <div class="red">1</div>
+    <div class="blue">2</div>
+    <div class="green">3</div>
+    <div class="black">4</div>
+
+    <script>
+        function getScroll(){
+            return {
+                left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+                top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+            }
+        }
+
+        var fixedDiv = document.querySelector('#fixed');
+        console.log(fixedDiv.offsetHeight);
+        window.onscroll = function(){
+            if(getScroll().top >= fixedDiv.previousElementSibling.offsetHeight){
+                fixedDiv.className = 'gray fixed';
+                fixedDiv.nextElementSibling.style.marginTop = fixedDiv.offsetHeight + 'px';
+            }else {
+                fixedDiv.className = 'gray';
+                fixedDiv.nextElementSibling.style.marginTop = 0;
+            }
+        }
+    </script>
+
+</body>
+</html>

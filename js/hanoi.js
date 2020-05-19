@@ -8,4 +8,4 @@ function hanoi(n, A, B, C) {
     }
 }
 
-hanoi(4, 'A', 'B', 'C');
+hanoi(3, 'A', 'B', 'C');

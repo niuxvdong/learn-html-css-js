@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #parent {
+            width: 200px;
+            height: 200px;
+            border: 5px solid #000;
+            overflow: scroll;
+        }
+
+        .son {
+            width: 500px;
+            height: 300px;
+        }
+
+        .red {
+            background: #f00;
+        }
+
+        .blue {
+            background: #00f;
+        }
+
+        .yellow {
+            background: #ff0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="parent">
+        <div class="son red"></div>
+        <div class="son blue"></div>
+        <div class="son yellow"></div>
+    </div>
+
+    <input type="button" name="" id="btn" value="设定位置">
+
+    <h1>client 获得滚动框大小。。</h1>
+
+    <script>
+        var parent = document.querySelector('#parent');
+
+        // scrollWidth   scrollHeight
+        // 获取到的是内部元素撑开的宽高
+        console.log(parent.scrollWidth); // 500
+        console.log(parent.scrollHeight); // 900
+
+        // 应该是200 * 200 滚动条有17的宽度
+        console.log(parent.clientWidth); // 183
+        console.log(parent.clientHeight); // 183
+
+        // 滚动框边框外角到内角的距离
+        console.log(parent.clientLeft); // 5
+        console.log(parent.clientTop); // 5
+
+
+        // onscroll方法：滚动时调用
+        // scrollLeft    scrollTop
+        parent.onscroll = function(){
+            console.log(parent.scrollLeft, parent.scrollTop);
+        }
+
+        var btn = document.querySelector('#btn');
+        btn.onclick = function(){
+            parent.scrollLeft = 100;
+            parent.scrollTop = 500;
+        }
+
+    </script>
+
+</body>
+</html>

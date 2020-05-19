@@ -84,7 +84,7 @@ f4();
 // 九、函数中的函数位置无影响
 
 function f5() {
-    console.log('ff()');
+    console.log(ff());
     function ff() {
         console.log('ff');
     }
@@ -133,7 +133,7 @@ test(3, 5);
 // 练习
 
 console.log(x, y); // undefined undefined
-console.log(z); // 无法访问
+// console.log(z); // 无法访问
 var x = 1, y = z = 2;
 
 

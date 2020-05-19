@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map {
+            width: 800px;
+            height: 600px;
+            background: #ccc;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .food {
+            width: 20px;
+            height: 20px;
+            background: #00f;
+            position: absolute;
+        }
+
+        .snake {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+    <script type="text/javascript" src="js/food.js"></script>
+    <script type="text/javascript" src="js/snake.js"></script>
+    <script type="text/javascript">
+        // 对象分析：snake food map game
+
+
+        var food = new Food();
+        food.init(document.querySelector('#map'));
+
+        // var food1 = new Food(80, 80, '#ff0');
+        // food1.init(document.querySelector('#map'));
+
+        var snake = new Snake();
+        snake.init(document.querySelector('#map'));
+
+
+        function Map(){
+
+        }
+
+        function Game(){
+
+        }
+    </script>
+
+</body>
+</html>

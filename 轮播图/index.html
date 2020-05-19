@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/gh/niuxvdong/learn-html-css-js/%E8%BD%AE%E6%92%AD%E5%9B%BE/js/animation.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niuxvdong/learn-html-css-js/%E8%BD%AE%E6%92%AD%E5%9B%BE/css/index.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/niuxvdong/learn-html-css-js/%E8%BD%AE%E6%92%AD%E5%9B%BE/css/index.css"> -->
+    <link rel="stylesheet" href="css/index.css">
     <title>Document</title>
 </head>
 <body>
@@ -18,12 +19,16 @@
                 <li><a href="#"><img src="https://cdn.jsdelivr.net/gh/niuxvdong/learn-html-css-js/%E8%BD%AE%E6%92%AD%E5%9B%BE/images/4.jpg" alt=""></a></li>
                 <li><a href="#"><img src="https://cdn.jsdelivr.net/gh/niuxvdong/learn-html-css-js/%E8%BD%AE%E6%92%AD%E5%9B%BE/images/5.jpg" alt=""></a></li>
             </ul>
-            <div data-index="0">
+            <div data-index="0" class="page">
                 <span class="active">1</span>
                 <span>2</span>
                 <span>3</span>
                 <span>4</span>
                 <span>5</span>
+            </div>
+            <div class="arrow">
+                <span class="left">&lt;</span>
+                <span class="right">&gt;</span>
             </div>
         </div>
     </div>
@@ -39,8 +44,10 @@
         var ul = document.querySelector('#box>.inner>ul');
         // animation(ul, -width * 1, DURATION, INTERVAL);
 
-        var spans = document.querySelectorAll('#box>.inner>div>span');
-        var div = document.querySelector('#box>.inner>div');
+        var spans = document.querySelectorAll('#box>.inner>.page>span');
+        var div = document.querySelector('#box>.inner>.page');
+
+        // 右下角标号点击事件
 
         for(var i = 0; i < spans.length; i++){
             // 使用立即执行函数将i传入
@@ -74,6 +81,47 @@
                 }
             });
         }
+
+        // 左右箭头点击事件
+
+        var leftSpan = document.querySelector('#box>.inner>.arrow>span.left');
+        var rightSpan = document.querySelector('#box>.inner>.arrow>span.right');
+
+        leftSpan.addEventListener('click', function(){
+            var oldX = parseInt(div.dataset['index']);
+            var x = oldX - 1 === -1 ? spans.length - 1 : oldX - 1;
+            animation(ul, -width * x, DURATION, INTERVAL);
+
+            div.dataset['index'] = x;
+            spans[oldX].removeAttribute('class', 'active');
+            spans[x].setAttribute('class', 'active');
+        });
+
+        rightSpan.addEventListener('click', function(){
+            var oldX = parseInt(div.dataset['index']);
+            var x = spans.length - 1 - oldX === 0 ? 0 : oldX + 1;
+            animation(ul, -width * x, DURATION, INTERVAL);
+
+            div.dataset['index'] = x;
+            spans[oldX].removeAttribute('class', 'active');
+            spans[x].setAttribute('class', 'active');
+        });
+
+        // 自动滚动
+        var AUTO_INTERVAL = 7000;
+        setTimeout(function(){
+            var oldX = parseInt(div.dataset['index']);
+            var x = spans.length - 1 - oldX === 0 ? 0 : oldX + 1;
+
+            animation(ul, -width * x, DURATION, INTERVAL);
+
+            div.dataset['index'] = x;
+            spans[oldX].removeAttribute('class', 'active');
+            spans[x].setAttribute('class', 'active');
+
+            setTimeout(arguments.callee, AUTO_INTERVAL);
+
+        }, AUTO_INTERVAL);
     </script>
 
 </body>
