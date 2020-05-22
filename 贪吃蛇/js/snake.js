@@ -30,6 +30,10 @@
         // 3. 根据head length direction 判断蛇初始位置会不会越界
         //      head越界：调整
         //      身体越界：报错
+        switch (this.direction) {
+            case 'right':
+                break;
+        }
         // 4. 调用repaint
     }
 
