@@ -2,8 +2,9 @@
     // 蛇的宽度 长度 头颜色 身体颜色 方向
     function Snake(width, height, length, headBG, bodyBG, direction) {
         this.head = {
-            headBG: headBG || this.DEFAULTBODYBG
+            headBG: headBG || this.DEFAULTHEADBG
         }
+        this.divElements = [];
         this.body = [];
         this.body.bodyBG = bodyBG || this.DEFAULTBODYBG;
         this.width = width || this.DEFAULTWIDTH;
@@ -32,9 +33,54 @@
         //      身体越界：报错
         switch (this.direction) {
             case 'right':
+                for (var i = 0; i < this.length - 1; i++){
+                    var bodyBlock = {
+                        x: this.head.x - (i + 1) * this.width,
+                        y: this.head.y,
+                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        divElement: null
+                    }
+                    this.body.push(bodyBlock);
+                }
                 break;
+            case 'left':
+                for (var i = 0; i < this.length - 1; i++){
+                    var bodyBlock = {
+                        x: this.head.x + (i + 1) * this.width,
+                        y: this.head.y,
+                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        divElement: null
+                    }
+                    this.body.push(bodyBlock);
+                }
+                break;
+            case 'up':
+                for (var i = 0; i < this.length - 1; i++){
+                    var bodyBlock = {
+                        x: this.head.x,
+                        y: this.head.y + (i + 1) * this.height,
+                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        divElement: null
+                    }
+                    this.body.push(bodyBlock);
+                }
+                break;
+            case 'down':
+                for (var i = 0; i < this.length - 1; i++){
+                    var bodyBlock = {
+                        x: this.head.x,
+                        y: this.head.y - (i + 1) * this.height,
+                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        divElement: null
+                    }
+                    this.body.push(bodyBlock);
+                }
+                break;
+            default:
+                console.error('direction is incorrect: ', this.direction);
         }
         // 4. 调用repaint
+        repaint.call(this, map);
     }
 
     // 根据要求，移动蛇，调整模型，调用repaint
@@ -42,11 +88,38 @@
         // 1. 移动蛇
         // 2. 是不是吃到食物，处理食物，调整蛇
         // 3. repaint
+
     }
 
     // 负责根据模型及divElement来操作DOM
-    Snake.prototype.repaint = function (map) {
+    function repaint(map) {
+        if (!this.head.divElement) {
+            var div = document.createElement('div');
+            div.className = this.CLASSNAME;
+            div.style.left = this.head.x + 'px';
+            div.style.top = this.head.y + 'px';
+            div.style.width = this.width + 'px';
+            div.style.height = this.height + 'px';
+            div.style.backgroundColor = this.head.headBG;
+            this.head.divElement = div;
+            this.divElements.push(div);
+            map.appendChild(div);
+        }
 
+        for (var i = 0; i < this.body.length; i++){
+            if (!this.body[i].divElement) {
+                var div = document.createElement('div');
+                div.className = this.CLASSNAME;
+                div.style.left = this.body[i].x + 'px';
+                div.style.top = this.body[i].y + 'px';
+                div.style.width = this.width + 'px';
+                div.style.height = this.height + 'px';
+                div.style.backgroundColor = this.body.bodyBG;
+                this.body[i].divElement = div;
+                this.divElements.push(div);
+                map.appendChild(div);
+            }
+        }
     }
 
     window.Snake = Snake;
