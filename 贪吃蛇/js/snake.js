@@ -2,15 +2,15 @@
     // 蛇的宽度 长度 头颜色 身体颜色 方向
     function Snake(width, height, length, headBG, bodyBG, direction) {
         this.head = {
-            headBG: headBG || this.DEFAULTHEADBG
+            backgroundColor: headBG || this.DEFAULTHEADBG
         }
-        this.divElements = [];
         this.body = [];
-        this.body.bodyBG = bodyBG || this.DEFAULTBODYBG;
+        this.body.backgroundColor = bodyBG || this.DEFAULTBODYBG;
         this.width = width || this.DEFAULTWIDTH;
         this.height = height || this.DEFAULTHEIGHT;
         this.length = length || this.DEFAULTLENGTH;
         this.direction = direction || this.DEFAULTDIRECTION;
+        this.gotFood = false;
     }
 
     Snake.prototype.CLASSNAME = 'snake';
@@ -37,7 +37,7 @@
                     var bodyBlock = {
                         x: this.head.x - (i + 1) * this.width,
                         y: this.head.y,
-                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        backgroundColor: this.body.backgroundColor || this.DEFAULTBODYBG,
                         divElement: null
                     }
                     this.body.push(bodyBlock);
@@ -48,7 +48,7 @@
                     var bodyBlock = {
                         x: this.head.x + (i + 1) * this.width,
                         y: this.head.y,
-                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        backgroundColor: this.body.backgroundColor || this.DEFAULTBODYBG,
                         divElement: null
                     }
                     this.body.push(bodyBlock);
@@ -59,7 +59,7 @@
                     var bodyBlock = {
                         x: this.head.x,
                         y: this.head.y + (i + 1) * this.height,
-                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        backgroundColor: this.body.backgroundColor || this.DEFAULTBODYBG,
                         divElement: null
                     }
                     this.body.push(bodyBlock);
@@ -70,7 +70,7 @@
                     var bodyBlock = {
                         x: this.head.x,
                         y: this.head.y - (i + 1) * this.height,
-                        backgroundColor: this.body.bodyBG || this.DEFAULTBODYBG,
+                        backgroundColor: this.body.backgroundColor || this.DEFAULTBODYBG,
                         divElement: null
                     }
                     this.body.push(bodyBlock);
@@ -78,6 +78,7 @@
                 break;
             default:
                 console.error('direction is incorrect: ', this.direction);
+                return false;
         }
         // 4. 调用repaint
         repaint.call(this, map);
@@ -85,9 +86,64 @@
 
     // 根据要求，移动蛇，调整模型，调用repaint
     Snake.prototype.move = function (map, food) {
+
+        // 判断是不是吃到食物
+        if (this.head.x === food.x && this.head.y === food.y) {
+            this.gotFood = true;
+
+            food.init(map);
+        }
+
         // 1. 移动蛇
+        //      1.1 pop尾巴
+        //      1.2 unshift(head)
+        //      1.3 renew head
+        if (!this.gotFood) {
+            var tailBlock = this.body.pop();
+            // 删除蛇尾
+            tailBlock.divElement.remove();
+        }
+
+
+        var headBlock = {
+            x: this.head.x,
+            y: this.head.y,
+            backgroundColor: this.head.backgroundColor,
+            divElement: null
+        };
+
+        // 删除蛇头
+        this.head.divElement.remove();
+        this.head.divElement = null;
+        this.head.backgroundColor = this.body.backgroundColor;
+        // 将蛇头挨着的身体放到蛇头，即将蛇头变为身体
+        this.body.unshift(this.head);
+
+
+        // 处理蛇头位置
+        switch (this.direction) {
+            case 'right':
+                headBlock.x += this.width;
+
+                break;
+            case 'left':
+                headBlock.x -= this.width;
+                break;
+            case 'down':
+                headBlock.y += this.height;
+                break;
+            case 'up':
+                headBlock.y -= this.height;
+                break;
+            default:
+                console.error('direction is incorrect: ', this.direction);
+                return false;
+        }
+
+        this.head = headBlock;
         // 2. 是不是吃到食物，处理食物，调整蛇
         // 3. repaint
+        repaint.call(this, map);
 
     }
 
@@ -100,9 +156,8 @@
             div.style.top = this.head.y + 'px';
             div.style.width = this.width + 'px';
             div.style.height = this.height + 'px';
-            div.style.backgroundColor = this.head.headBG;
+            div.style.backgroundColor = this.head.backgroundColor;
             this.head.divElement = div;
-            this.divElements.push(div);
             map.appendChild(div);
         }
 
@@ -114,13 +169,13 @@
                 div.style.top = this.body[i].y + 'px';
                 div.style.width = this.width + 'px';
                 div.style.height = this.height + 'px';
-                div.style.backgroundColor = this.body.bodyBG;
+                div.style.backgroundColor = this.body.backgroundColor;
                 this.body[i].divElement = div;
-                this.divElements.push(div);
                 map.appendChild(div);
             }
         }
     }
 
+    // function remove;
     window.Snake = Snake;
 })();

@@ -40,8 +40,6 @@
         // 4. 把div画出来
         map.appendChild(element);
         this.divElement = element;
-
-
     }
 
     // 清除上一个事物
