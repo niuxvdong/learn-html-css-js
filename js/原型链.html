@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="div1"></div>
+    <script>
+        // 原型链
+        //      从Object开始，每一层底层的构造函数构造出实例，作为上一层构造函数的原型对象
+        //      构造好后，通过对象的__proto__可以一直追溯到Object/null,这个链表称为原型链
+        // Object Grand Father Son
+
+        var object = new Object();
+        object.objectName = 'object';
+
+        function Grand() {
+            this.grandA = 'a';
+        }
+
+        // 互相指
+        Grand.prototype = object;
+        object.constructor = Grand;
+
+        var grand = new Grand();
+        grand.grandName = 'grand';
+
+        function Father(){
+            this.fatherA = 'fa';
+        }
+
+        Father.prototype = grand;
+        grand.constructor = Father;
+
+        var father = new Father();
+        father.fatherName = 'father';
+
+        function Son(){
+            this.sonA = 'sa';
+        }
+
+        Son.prototype = father;
+        father.constructor = Son;
+
+        var son = new Son();
+        son.sonName = 'son';
+
+        var s1 = son.__proto__;
+        var s2 = s1.__proto__;
+        var s3 = s2.__proto__;
+
+        // 原型链都可以访问：
+        // 原型链的性质:
+        //      1. 所有挂在原型链对象上的属性和方法能够被所有派生实例共享
+        //      2. 冲突采取就近原则，从自身到原型找下去，否则undefined
+        console.log(son.objectName);
+        console.log(son.grandName);
+        console.log(son.fatherName);
+
+        // Document 是一个构造函数， 原型链：Document -> Node -> EventTarget -> Object
+        var div = document.querySelector('#div1');
+        // HtmlDivElement -> HtmlElement -> Element -> Node -> EventTarget -> Object
+
+        
+
+
+    </script>
+
+</body>
+
+</html>
