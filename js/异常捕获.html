@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            console.log(msg);
+            console.log(url);
+            console.log(line);
+            console.log(col);
+            console.log(error);
+            console.log(error.name);
+
+            // 红色字体的错误就消失了，不打印了。
+            // return true;
+        }
+
+        a();
+
+        /* Uncaught ReferenceError: a is not defined
+        异常捕获.html:13 http://127.0.0.1:5500/js/%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7.html
+        异常捕获.html:14 19
+        异常捕获.html:15 9
+        异常捕获.html:16 ReferenceError: a is not defined
+            at 异常捕获.html:19
+            ReferenceError */
+    </script>
+
+</body>
+</html>
