@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div1{
+            width: 200px;
+            height: 200px;
+            background-color: #f00;
+        }
+        .father {
+            height: 200px;
+            background-color: #ccc;
+        }
+        .son {
+            height: 200px;
+            width: 200px;
+            border: 5px solid red;
+            /* background-color: rgba(233, 154, 34, 0); */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="div1" style="background-color: aqua;"></div>
+
+    <script>
+        // 1. 通过style获取行内样式
+        var div = document.querySelector('.div1');
+        var bgc = div.style.backgroundColor;
+        console.log(bgc);
+
+        // 2. 通过getComputeStyle 获取真正生效的css
+        if(document.defaultView && document.defaultView.getComputedStyle){
+            var css = document.defaultView.getComputedStyle(div, null);
+            bgc = css ? css.getPropertyValue('background-color') : null;
+            console.log(bgc);
+        }
+
+        // 封装为函数
+        // prop:糖葫芦写法
+        function getStyle(ele, prop){
+            var value = '';
+            if(!ele || !prop){
+                return value;
+            }
+
+            if(document.defaultView && document.defaultView.getComputedStyle){
+                var css = document.defaultView.getComputedStyle(ele, null);
+                value = css ? css.getPropertyValue(prop) : null;
+            }
+            return value;
+        }
+
+        console.log(getStyle(div, 'background-color'));
+
+    </script>
+
+    <!-- 有父级影响的CSS获取 -->
+    <div class="father">
+        <div class="son"></div>
+    </div>
+
+    <script>
+        var son = document.querySelector('.son');
+        // 1. son 没有设置颜色
+        // 默认为 rgba(0, 0, 0, 0)
+        console.log(getStyle(son, 'background-color'));
+        // 获取父节点 rgb(204, 204, 204)
+        console.log(getStyle(son.parentNode, 'background-color'));
+
+        // 2. son rgba透明度为0时 ,以及opacity 为 0 ,display none, visibility hidden,颜色为父级颜色， 获得的颜色为son的bgc
+        //  rgba(233, 154, 34, 0)
+        console.log(getStyle(son, 'background-color'));
+        /* 解决 */
+        // 找透明度进行特别处理 使用正则
+        var bgc = getStyle(son, 'background-color');
+        var re = /\d+,\s+\d+,\s+\d+,\s+0/;
+        // rgba(233, 154, 34, 0)
+        console.log(re.test(bgc)); // true
+
+
+        // ===================== 解决：====================
+        // 判断元素是否透明
+        function isOpacity(ele){
+            var value = '';
+            var opacity = true;
+
+            value = getStyle(ele, 'opacity');
+            if(value === 0){
+                return opacity;
+            }
+
+            value = getStyle(ele, 'visibility');
+            if(value === 'hidden'){
+                return opacity;
+            }
+
+            value = getStyle(ele, 'display');
+            if(value === 'none'){
+                return opacity;
+            }
+
+            value = getStyle(ele, 'background-color');
+            var re = /\d+,\s+\d+,\s+\d+,\s+0/;
+            if(re.test(value)){
+                return opacity;
+            }
+
+            return false;
+        }
+
+        // 获得眼睛看到的bgc
+        // 解决透明与不透明问题
+        function getRealBgc(ele){
+            var bgc = '';
+            if(!isOpacity(ele)){
+                bgc = getStyle(ele, 'background-color');
+            }else if(ele !== document.documentElement){
+                // 递归去找父级bgc
+                bgc = getRealBgc(ele.parentNode);
+            }else{
+                bgc = 'rgba(0, 0, 0, 0)';
+            }
+            return bgc;
+        }
+        console.log('=============');
+        console.log(getRealBgc(son));
+
+
+    </script>
+
+    <!-- 封装 -->
+    <script src="获取css.js"></script>
+    <script>
+        var son = document.querySelector('.son');
+        console.log(NXD.getRealBgc(son));
+    </script>
+
+</body>
+</html>
