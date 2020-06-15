@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <textarea name="" id="txt" cols="30" rows="5"></textarea>
+
+    <script>
+        var txt = document.querySelector('#txt');
+
+        // 使用addEventListener也有兼容性问题
+        txt.addEventListener('keydown', function(e){
+            // IE兼容性问题
+            e = e || window.event;
+            if(e.keyCode === 13){
+                // 组织默认事件回车
+                e.preventDefault();
+                // 回车修改为 {enter}
+                this.value += '{enter}';
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -34,6 +34,7 @@ console.log(a.constructor.name === 'Array'); // true
 
 
 a = [0, 1, 2, 3, 4, 5, 6, 7];
+console.log('=====================================');
 console.log(a.slice(3));
 console.log(a.slice(-3));
 console.log(a.slice(2, 4));
