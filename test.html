@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <table border="1px" cellspacing="0" cellpadding="15px 5px" align="center">
+        <caption style="font-size: 25px; margin-bottom: 20px;">个人简历（一）</caption>
+        <tbody align="center">
+            <tr>
+                <th>姓名</th>
+                <th width="80px"></th>
+                <th>性别</th>
+                <th width="80px"></th>
+                <th>出生年月</th>
+                <th width="80px"></th>
+                <th rowspan="4" width="120px"></th>
+            </tr>
+            <tr>
+                <td>民族</td>
+                <td></td>
+                <td>政治面貌</td>
+                <td></td>
+                <td>身高</td>
+                <td></td>
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td>学制</td>
+                <td></td>
+                <td>学历</td>
+                <td></td>
+                <td>户籍</td>
+                <td></td>
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td>专业</td>
+                <td></td>
+                <td colspan="2">毕业学校</td>
+                <td colspan="2"></td>
+                <!-- <td></td> -->
+            </tr>
+            <tr>
+                <td colspan="7">技能、特长或爱好</td>
+            </tr>
+            <tr>
+                <td colspan="2">外语等级</td>
+                <td></td>
+                <td colspan="3">计算机</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+
+    <form action="" method="GET">
+        <h2>信息注册页面</h2>
+        <label>
+            用&nbsp;户&nbsp;名：&nbsp;<input type="text" name="username" id="username">
+        </label>
+        <br>
+        <label>
+            密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：&nbsp;<input type="password" name="password" id="password">
+        </label>
+        <br>
+        <label>
+            确认密码：<input type="password" name="password1" id="password1">
+        </label>
+        <br>
+        性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<label><input type="radio" name="gender" id="">男</label>
+        <label><input type="radio" name="gender" id="">女</label>
+        <br>
+        <label>
+            技&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;术：
+            <label><input type="checkbox" name="tech" id="" checked>Java</label>
+            <label><input type="checkbox" name="tech" id="">Jsp</label>
+            <label><input type="checkbox" name="tech" id="" checked>C++</label>
+            <label><input type="checkbox" name="tech" id="">Python</label>
+        </label>
+
+        <br>
+        <label>
+            国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家：
+            <select>
+                <option value="">--选择国家--</option>
+                <option value="中国">中国</option>
+                <option value="法国">法国</option>
+                <option value="日本">日本</option>
+                <option value="美国">美国</option>
+            </select>
+        </label>
+
+        <br><br>
+
+        <label>
+            提交文件：<input type="file">
+        </label>
+        <br>
+
+        <label>个人介绍：<br>
+            <textarea name="" id="" cols="10" rows="5"></textarea>
+        </label>
+
+        <br>
+        <label><input type="submit" value="提交数据"></label>
+        <label><input type="reset" value="清除数据"></label>
+
+    </form>
+
+    <br><br><br><br><br><br>
+</body>
+
+</html>
